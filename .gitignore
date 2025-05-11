@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+
+# Env
+.env
+
+# Django static/media
+/staticfiles/
+/media/
+
+# IDEs & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Virtualenv
+venv/
+env/
+*.egg-info/
+
+# Render
+render.yaml
