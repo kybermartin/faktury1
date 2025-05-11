@@ -78,10 +78,9 @@ WSGI_APPLICATION = 'tutorial.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'do481202db',         # napr. 'faktury_db'
-        'USER': 'do481200',               # napr. 'root'
-        'PASSWORD': 'cIZzTa76gBV9ritMVauuTF',
-        #'PASSWORD': 'He12slo24',            # napr. pre localhost
+        'NAME': os.getenv('NAME'),         # napr. 'faktury_db'
+        'USER': os.getenv('USER'),               # napr. 'root'
+        'PASSWORD': os.getenv('PASSWORD'),
         'HOST': '86.110.243.70',              # alebo IP adresa servera
         'PORT': '3306',                   # štandardný MySQL port
         'OPTIONS': {
