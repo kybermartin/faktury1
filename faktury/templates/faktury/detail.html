@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detail faktúry</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header>
+    <h1>Detail faktúry</h1>
+</header>
+<div class="container">
+    <h2>Faktúra č. {{ faktura.cislo_faktury }}</h2>
+    <p><strong>Odberateľ:</strong> {{ faktura.odberatel }}</p>
+    <p><strong>Dátum vystavenia:</strong> {{ faktura.datum_vystavenia }}</p>
+    <p><strong>Dátum splatnosti:</strong> {{ faktura.datum_splatnosti }}</p>
+    <p><strong>Suma celkom:</strong> {{ faktura.suma_celkom }} €</p>
+    <p><strong>Stav platby:</strong> {{ faktura.stav_platby }}</p>
+
+    <a href="/{{ faktura.id }}/uprav/">Upraviť</a>
+    <a href="/{{ faktura.id }}/pdf/">Stiahnuť PDF</a>
+    <a href="/{{ faktura.id }}/email/">Odoslať e-mailom</a>
+</div>
+</body>
+</html>

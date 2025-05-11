@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zoznam faktúr</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header>
+    <h1>Zoznam vystavených faktúr</h1>
+</header>
+<div class="container">
+    <a href="/nova/">Vytvoriť novú faktúru</a>
+    <ul>
+        {% for faktura in faktury %}
+            <li>
+                <a href="/{{ faktura.id }}/">Faktúra č. {{ faktura.cislo_faktury }}</a>
+                ({{ faktura.odberatel }}, {{ faktura.suma_celkom }} €)
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>

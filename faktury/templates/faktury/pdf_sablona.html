@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>Faktúra č. {{ faktura.cislo_faktury }}</h1>
+    <p><strong>Odberateľ:</strong> {{ faktura.odberatel }}</p>
+    <p><strong>Dátum vystavenia:</strong> {{ faktura.datum_vystavenia }}</p>
+    <p><strong>Dátum splatnosti:</strong> {{ faktura.datum_splatnosti }}</p>
+
+    <h2>Položky</h2>
+    <table>
+        <tr>
+            <th>Názov</th><th>Množstvo</th><th>Jednotková cena</th><th>Sadzba DPH</th>
+        </tr>
+        {% for polozka in faktura.polozky.all %}
+        <tr>
+            <td>{{ polozka.nazov }}</td>
+            <td>{{ polozka.mnozstvo }}</td>
+            <td>{{ polozka.cena_za_jednotku }} €</td>
+            <td>{{ polozka.sadzba_dph }} %</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Spolu: {{ faktura.suma_celkom }} €</h3>
+</body>
+</html>
