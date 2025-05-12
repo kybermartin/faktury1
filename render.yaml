@@ -9,7 +9,7 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: faktury.settings
       - key: SECRET_KEY
-        value: tvoje_silne_tajne_klucove_slovo
+        value: django-insecure-18j+p4mrdph7kdor=rg
       - key: DEBUG
         value: 'False'
       - key: ALLOWED_HOSTS
