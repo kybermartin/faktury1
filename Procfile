@@ -1,1 +1,1 @@
-web: gunicorn faktury.wsgi
+web: gunicorn tutorial.wsgi
