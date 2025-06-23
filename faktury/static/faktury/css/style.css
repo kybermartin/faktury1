@@ -1,45 +1,88 @@
-/* faktury/static/css/style.css */
-
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
-    color: #333;
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #0057b8;
-    color: white;
-    padding: 20px 40px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-h1, h2, h3 {
-    color: #0057b8;
-}
-
-.container {
-    max-width: 900px;
-    margin: 30px auto;
     padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
+    background: #f9f9f9;
+  }
+  
+  .invoice {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 40px;
+    border: 1px solid #ccc;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  
+  .header .left, .header .right {
+    width: 45%;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  table.items {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  
+  table.items th, table.items td {
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .note {
+    font-size: 0.9em;
+    margin-top: 5px;
+    color: #333;
+  }
+  
+  .total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  
+  .signature .sign-box {
+    width: 100px;
+    height: 50px;
+    border: 1px dashed #999;
+    margin-top: 5px;
+  }
+  
+  .footer {
+    margin-top: 40px;
+  }
+  
+  .footer-box {
+    background: #e6f4f9;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.95em;
+    border: 1px solid #ccc;
+  }
+  
+  .bottom-bar {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    border-top: 1px dotted #ccc;
+    padding-top: 8px;
+  }
+  
 
-a {
-    color: #0057b8;
-    text-decoration: none;
-    margin-right: 15px;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-form {
+  form {
     display: flex;
     flex-direction: column;
 }
@@ -68,11 +111,11 @@ button:hover {
 }
 
 ul {
-    list-style-type: none;
-    padding-left: 0;
+  list-style-type: none;
+  padding-left: 0;
 }
 
 li {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
 }

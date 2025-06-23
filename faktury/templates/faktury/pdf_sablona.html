@@ -1,24 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
 <head>
-    <meta charset="utf-8">
-    <style>
-        body { font-family: Arial, sans-serif; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faktúra {{ faktura.cislo_faktury }}</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Faktúra č. {{ faktura.cislo_faktury }}</h1>
-    <p><strong>Odberateľ:</strong> {{ faktura.odberatel }}</p>
-    <p><strong>Dátum vystavenia:</strong> {{ faktura.datum_vystavenia }}</p>
-    <p><strong>Dátum splatnosti:</strong> {{ faktura.datum_splatnosti }}</p>
+  <div class="invoice">
+    <div class="header">
+      <div class="left">
+        <h3>Dodávateľ:</h3>
+        <p>Ing. Martin Špak<br>
+        Czauczika 7<br>
+        05401 Levoča<br>
+        Slovensko</p>
+        <p>IČO: 44571283<br> DIČ: 1079936055</p>
+        <p><strong>Poštová banka:</strong><br>
+        Variabilný symbol: <strong>{{ faktura.cislo_faktury }}</strong></p>
+      </div>
+      <div class="right">
+        <h1>Faktúra 2025013</h1>
+        <h3>Odberateľ:</h3>
+        <p>{{ faktura.odberatel }}<br>
+        Pisarovská 459/91C,<br>
+        053 02 Spišský Hrhov<br>
+        Slovensko</p>
+        <p>IČO: 53804891<br> DIČ: 2120384591</p>
+        <p>Dátum vystavenia: {{ faktura.datum_vystavenia }}<br>
+        Dátum splatnosti: {{ faktura.datum_splatnosti }}</p>
+      </div>
+    </div>
 
-    <h2>Položky</h2>
-    <table>
+    <table class="items">
+      <thead>
         <tr>
-            <th>Názov</th><th>Množstvo</th><th>Jednotková cena</th><th>Sadzba DPH</th>
+          <th>Názov a popis položky</th>
+          <th>Jednotková cena</th>
+          <th>Celkom</th>
         </tr>
+      </thead>
+      <tbody>
         {% for polozka in faktura.polozky.all %}
         <tr>
             <td>{{ polozka.nazov }}</td>
@@ -27,8 +49,34 @@
             <td>{{ polozka.sadzba_dph }} %</td>
         </tr>
         {% endfor %}
+      </tbody>
     </table>
 
-    <h3>Spolu: {{ faktura.suma_celkom }} €</h3>
+    <p class="note">Poznámka: Nie sme platiteľmi DPH.</p>
+
+    <div class="total">
+      <div class="signature">
+        <p>Podpis a pečiatka:</p>
+        <div class="sign-box">[podpis]</div>
+      </div>
+      <div class="sum">
+        <strong>Celková suma: {{ faktura.suma_celkom }} €</strong>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-box">
+        <div><strong>IBAN:</strong> SK** **** **** **** ****</div>
+        <div><strong>Variabilný symbol:</strong> {{ faktura.cislo_faktury }}</div>
+        <div><strong>Dátum splatnosti:</strong> {{ faktura.datum_splatnosti }}</div>
+        <div><strong>Suma na úhradu:</strong> 120,00 €</div>
+      </div>
+      <div class="bottom-bar">
+        <span>Vystavil: Ing. Martin Špak</span>
+        <span>📞 0904299424</span>
+        <span>📧 spak.martin@gmail.com</span>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
