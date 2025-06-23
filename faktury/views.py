@@ -6,6 +6,11 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from io import BytesIO
 from django.core.mail import EmailMessage
+from weasyprint import HTML, CSS
+import os
+from django.conf import settings
+
+
 
 def index(request):
     faktury = Invoice.objects.all()
@@ -19,9 +24,28 @@ def export_pdf(request, faktura_id):
     faktura = get_object_or_404(Invoice, id=faktura_id)
     template = get_template('faktury/pdf_sablona.html')
     html = template.render({'faktura': faktura})
-    response = HttpResponse(content_type='application/pdf')
+
+    # Cesta k fontu
+    font_path = os.path.join(settings.BASE_DIR, "static/fonts/DejaVuSans.ttf")
+
+    # CSS so slovenským fontom
+    css = CSS(string=f"""
+        @font-face {{
+            font-family: DejaVu;
+            src: url(file://{font_path});
+        }}
+        body {{
+            font-family: DejaVu, sans-serif;
+        }}
+    """)
+
+    # Vytvor PDF
+    pdf_file = HTML(string=html).write_pdf(stylesheets=[css])
+
+    response = HttpResponse(pdf_file,content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="faktura_{faktura.cislo_faktury}.pdf"'
-    pisa.CreatePDF(BytesIO(html.encode("UTF-8")), dest=response)
+    
+    #pisa.CreatePDF(BytesIO(html.encode("UTF-8")), dest=response)
     return response
 
 def posli_email(request, faktura_id):

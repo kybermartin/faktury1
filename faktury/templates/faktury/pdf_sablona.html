@@ -1,82 +1,166 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Faktúra {{ faktura.cislo_faktury }}</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    @font-face {
+      font-family: 'DejaVu';
+      src: url('DejaVuSans.ttf') format('truetype');
+    }
+
+    body {
+      font-family: 'DejaVu', sans-serif;
+      margin: 40px;
+      font-size: 12px;
+    }
+
+    h1 {
+      text-align: right;
+    }
+
+    .header, .footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .section {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 6px;
+      text-align: left;
+    }
+
+    .total {
+      text-align: right;
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .box {
+      background-color: #d7eef7;
+      padding: 10px;
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .small {
+      font-size: 10px;
+    }
+
+    .footer {
+      border-top: 1px dashed #888;
+      margin-top: 50px;
+      padding-top: 10px;
+      font-size: 10px;
+    }
+
+    .signature {
+      margin-top: 40px;
+      float: right;
+      text-align: right;
+    }
+
+    .signature img {
+      height: 40px;
+    }
+
+  </style>
 </head>
 <body>
-  <div class="invoice">
-    <div class="header">
-      <div class="left">
-        <h3>Dodávateľ:</h3>
-        <p>Ing. Martin Špak<br>
-        Czauczika 7<br>
-        05401 Levoča<br>
-        Slovensko</p>
-        <p>IČO: 44571283<br> DIČ: 1079936055</p>
-        <p><strong>Poštová banka:</strong><br>
-        Variabilný symbol: <strong>{{ faktura.cislo_faktury }}</strong></p>
-      </div>
-      <div class="right">
-        <h1>Faktúra 2025013</h1>
-        <h3>Odberateľ:</h3>
-        <p>{{ faktura.odberatel }}<br>
-        Pisarovská 459/91C,<br>
-        053 02 Spišský Hrhov<br>
-        Slovensko</p>
-        <p>IČO: 53804891<br> DIČ: 2120384591</p>
-        <p>Dátum vystavenia: {{ faktura.datum_vystavenia }}<br>
-        Dátum splatnosti: {{ faktura.datum_splatnosti }}</p>
-      </div>
+
+  <div class="header">
+    <div>
+      <strong>Dodávateľ:</strong><br>
+      Ing. Martin Špak<br>
+      Czauczika 7<br>
+      05401 Levoča<br>
+      Slovensko<br>
+      IČO: 44571283<br>
+      DIČ: 1079936055<br>
     </div>
-
-    <table class="items">
-      <thead>
-        <tr>
-          <th>Názov a popis položky</th>
-          <th>Jednotková cena</th>
-          <th>Celkom</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for polozka in faktura.polozky.all %}
-        <tr>
-            <td>{{ polozka.nazov }}</td>
-            <td>{{ polozka.mnozstvo }}</td>
-            <td>{{ polozka.cena_za_jednotku }} €</td>
-            <td>{{ polozka.sadzba_dph }} %</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-    <p class="note">Poznámka: Nie sme platiteľmi DPH.</p>
-
-    <div class="total">
-      <div class="signature">
-        <p>Podpis a pečiatka:</p>
-        <div class="sign-box">[podpis]</div>
-      </div>
-      <div class="sum">
-        <strong>Celková suma: {{ faktura.suma_celkom }} €</strong>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div class="footer-box">
-        <div><strong>IBAN:</strong> SK** **** **** **** ****</div>
-        <div><strong>Variabilný symbol:</strong> {{ faktura.cislo_faktury }}</div>
-        <div><strong>Dátum splatnosti:</strong> {{ faktura.datum_splatnosti }}</div>
-        <div><strong>Suma na úhradu:</strong> 120,00 €</div>
-      </div>
-      <div class="bottom-bar">
-        <span>Vystavil: Ing. Martin Špak</span>
-        <span>📞 0904299424</span>
-        <span>📧 spak.martin@gmail.com</span>
-      </div>
+    <div>
+      <h1>Faktúra {{ faktura.cislo_faktury }}</h1>
+      <strong>Odberateľ:</strong><br>
+      {{ faktura.odberatel }}<br>
+      Pisarovská 459/91C<br>
+      053 02 Spišský Hrhov<br>
+      Slovensko<br>
+      IČO: 53804891<br>
+      DIČ: 2120384591<br>
     </div>
   </div>
+
+  <div class="section">
+    <strong>Dátum vystavenia:</strong> {{ faktura.datum_vystavenia }}<br>
+    <strong>Dátum splatnosti:</strong> {{ faktura.datum_splatnosti }}<br>
+    <strong>Variabilný symbol:</strong> {{ faktura.cislo_faktury }}<br>
+    <strong>Slovenská sporiteľna</strong>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Názov a popis položky</th>
+        <th>Jednotková cena</th>
+        <th>Cena spolu</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for polozka in faktura.polozky.all %}
+      <tr>
+          <td>{{ polozka.nazov }}</td>
+          <td>{{ polozka.mnozstvo }}</td>
+          <td>{{ polozka.cena_za_jednotku }} €</td>
+          <td>{{ polozka.sadzba_dph }} %</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p><strong>Poznámka:</strong> Nie sme platiteľmi DPH.</p>
+
+  <div class="total">
+    Celková suma: {{ faktura.suma_celkom }} €
+  </div>
+
+  <div class="signature">
+    <p>Podpis a pečiatka:</p>
+    <img src="signature.png" alt="Podpis" />
+  </div>
+
+  <div class="box">
+    <div><strong>IBAN:</strong> SK** XXXX XXXX XXXX XXXX</div>
+    <div><strong>Variabilný symbol:</strong> 2025013</div>
+    <div><strong>Dátum splatnosti:</strong> 27.06.2025</div>
+    <div><strong>Suma na úhradu:</strong> 120,00 €</div>
+  </div>
+
+  <div class="footer">
+    <div>Vystavil: Ing. Martin Špak</div>
+    <div>☎️ 0904299424</div>
+    <div>✉️ spak.martin@gmail.com</div>
+    <div style="text-align:right;">Strana 1/1</div>
+  </div>
+
 </body>
 </html>
+
+
+
+
+
